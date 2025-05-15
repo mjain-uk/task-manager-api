@@ -2,6 +2,7 @@ import type { Repository } from "typeorm";
 import { AppDataSource } from "../db";
 import { Task } from "../domain/entities/task";
 import type { ITaskRepository } from "../domain/interfaces/task-repository";
+import type { CreateTaskObjectDto } from "../dtos";
 
 export class TaskRepository implements ITaskRepository {
 	constructor(
@@ -26,7 +27,7 @@ export class TaskRepository implements ITaskRepository {
 		return response;
 	}
 
-	async createTask(payload: Task) {
+	async createTask(payload: CreateTaskObjectDto) {
 		const object = this.taskRepository.create(payload);
 		await this.taskRepository.save(object);
 		return object;
