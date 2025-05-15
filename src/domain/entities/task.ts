@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Category } from "./category";
 
 @Entity("tasks")
 export class Task {
@@ -9,4 +10,10 @@ export class Task {
 		length: 100,
 	})
 	title!: string;
+
+	@ManyToOne(
+		() => Category,
+		(category) => category.tasks,
+	)
+	category!: Category;
 }

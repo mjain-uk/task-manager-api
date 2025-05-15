@@ -1,5 +1,4 @@
-import type { Request, Response } from "express";
-import { Task } from "../../domain/entities/task";
+import type { NextFunction, Request, Response } from "express";
 import { TaskService } from "../../use-cases/tasks/task-service";
 
 export class TaskController {
@@ -21,11 +20,17 @@ export class TaskController {
 		const task = await this.taskService.delete.execute(taskId);
 		res.status(200).json(task);
 	};
-	createNew = async (req: Request, res: Response) => {
-		const { title } = req.body;
-		const taskObject = new Task();
-		taskObject.title = title;
-		const task = await this.taskService.create.execute(taskObject);
-		res.status(200).json(task);
+	createNew = async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const { title, category } = req.body;
+			if (!title || !category) {
+				throw new Error("Title or Category missing");
+			}
+
+			const task = await this.taskService.create.execute({ title, category });
+			res.status(200).json(task);
+		} catch (error) {
+			next(error);
+		}
 	};
 }
