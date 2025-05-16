@@ -12,7 +12,9 @@ export class TaskRepository implements ITaskRepository {
 	) {}
 
 	async findAllTask() {
-		const response = await this.taskRepository.find({});
+		const response = await this.taskRepository.find({
+			relations: ["category"],
+		});
 		return response;
 	}
 
@@ -20,7 +22,10 @@ export class TaskRepository implements ITaskRepository {
 		if (!taskId) {
 			throw new Error("Invalid Task Id");
 		}
-		const response = await this.taskRepository.findOneBy({ id: taskId });
+		const response = await this.taskRepository.findOne({
+			where: { id: taskId },
+			relations: ["category"],
+		});
 		if (!response) {
 			throw new Error("Could not find task");
 		}

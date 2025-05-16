@@ -9,10 +9,19 @@ export class TaskController {
 		res.status(200).json(tasks);
 	};
 
-	getById = async (req: Request, res: Response) => {
-		const taskId = req?.params?.taskId ? Number(req.params.taskId) : undefined;
-		const task = await this.taskService.getById.execute(taskId);
-		res.status(200).json(task);
+	getById = async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const taskId = req?.params?.taskId
+				? Number(req.params.taskId)
+				: undefined;
+			if (!taskId) {
+				throw new Error("Invalid task ID");
+			}
+			const task = await this.taskService.getById.execute(taskId);
+			res.status(200).json(task);
+		} catch (error) {
+			next(error);
+		}
 	};
 
 	deleteById = async (req: Request, res: Response) => {

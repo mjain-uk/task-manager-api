@@ -12,6 +12,7 @@ export class CategoryRoutes extends BaseRouter {
 
 	private setupRoutes(): void {
 		this.router.get("/", this.categoryController.getAll);
+		this.router.get("/:catId", this.categoryController.getById);
 		this.router.post("/", this.categoryController.createNew);
 	}
 }
