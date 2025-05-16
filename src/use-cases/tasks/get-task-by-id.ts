@@ -4,6 +4,12 @@ export class GetTaskById {
 	constructor(private taskrepository: TaskRepository) {}
 
 	async execute(taskId: number | undefined) {
-		return await this.taskrepository.findTaskById(taskId);
+		const { category, id, title } =
+			await this.taskrepository.findTaskById(taskId);
+		return {
+			id,
+			title,
+			category: category.name,
+		};
 	}
 }
