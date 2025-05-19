@@ -1,23 +1,23 @@
-import type { CreateTaskPayload } from "../../dtos";
-import { CategoryRepository } from "../../repository/category-respository";
-import type { TaskRepository } from "../../repository/task-repository";
+import type { Task } from "../../domain/entities/task";
+import type { CreateTaskPayload } from "../../dtos/task/create-task-dto";
+import type { BasicCrudUseCase } from "../base-crud/base-crud-use-case";
+import type { GetCategoryById } from "../category/get-category-by-id";
 
 export class CreateNewTask {
 	constructor(
-		private taskrepository: TaskRepository,
-		private categoryRepository: CategoryRepository = new CategoryRepository(),
+		private basicCrudUseCase: BasicCrudUseCase<Task>,
+		private getCategoryById: GetCategoryById,
 	) {}
 	async execute(payload: CreateTaskPayload) {
 		const { category: categoryId, title } = payload;
 
 		// Find the Category from DB
-		const categoryObject =
-			await this.categoryRepository.findCategoryById(categoryId);
+		const categoryObject = await this.getCategoryById.execute(categoryId);
 
 		if (!categoryObject) {
 			throw new Error("Could not find Category");
 		}
-		const response = await this.taskrepository.createTask({
+		const response = await this.basicCrudUseCase.create({
 			title,
 			category: categoryObject,
 		});

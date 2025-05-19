@@ -1,9 +1,12 @@
-import type { TaskRepository } from "../../repository/task-repository";
+import type { Task } from "../../domain/entities/task";
+import type { BasicCrudUseCase } from "../base-crud/base-crud-use-case";
 
 export class GetAllTasks {
-	constructor(private taskrepository: TaskRepository) {}
+	constructor(private basicCrudUseCase: BasicCrudUseCase<Task>) {}
 	async execute() {
-		const tasks = await this.taskrepository.findAllTask();
+		const tasks = await this.basicCrudUseCase.findAll({
+			relations: ["category"],
+		});
 		return tasks.map(({ title, id, category }) => ({
 			id,
 			title,
