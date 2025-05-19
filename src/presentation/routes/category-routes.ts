@@ -14,5 +14,6 @@ export class CategoryRoutes extends BaseRouter {
 		this.router.get("/", this.categoryController.getAll);
 		this.router.get("/:catId", this.categoryController.getById);
 		this.router.post("/", this.categoryController.createNew);
+		this.router.delete("/:catId", this.categoryController.deleteById);
 	}
 }

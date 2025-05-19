@@ -25,6 +25,20 @@ export class CategoryController {
 		}
 	};
 
+	deleteById = async (req: Request, res: Response, next: NextFunction) => {
+		try {
+			const catId = req?.params?.catId ? Number(req.params.catId) : undefined;
+
+			if (!catId) {
+				throw new Error("Invalid Category ID");
+			}
+			const category = await this.categoryService.deleteById.execute(catId);
+			res.status(200).json(category);
+		} catch (error) {
+			next(error);
+		}
+	};
+
 	createNew = async (req: Request, res: Response, next: NextFunction) => {
 		try {
 			const { name } = req.body;

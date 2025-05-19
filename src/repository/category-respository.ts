@@ -24,4 +24,12 @@ export class CategoryRepository implements ICategory {
 		});
 		return category;
 	}
+	async deleteById(catId: number | undefined) {
+		if (!catId) {
+			throw new Error("Invalid category ID");
+		}
+
+		await this.categoryRepository.delete({ id: catId });
+		return;
+	}
 }

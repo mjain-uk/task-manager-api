@@ -39,10 +39,7 @@ export class TaskRepository implements ITaskRepository {
 	}
 
 	async deleteTaskById(taskId: number | undefined) {
-		const { affected } = await this.taskRepository.delete({ id: taskId });
-		if (!affected || affected < 1) {
-			throw new Error("Could not do the delete request");
-		}
+		await this.taskRepository.delete({ id: taskId });
 		return;
 	}
 }
