@@ -1,4 +1,4 @@
-import type { Category } from "../domain/entities/category";
+import type { Category } from "../../domain/entities/category";
 
 export type CreateTaskPayload = {
 	title: string;

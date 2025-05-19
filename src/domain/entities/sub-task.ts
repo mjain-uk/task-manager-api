@@ -15,7 +15,7 @@ export class SubTask {
 	@Column({ length: 255 })
 	title!: string;
 
-	@OneToOne(() => Task)
-	@JoinColumn()
-	task: Task | undefined;
+	@OneToOne(() => Task, { nullable: false })
+	@JoinColumn({ name: "task_id" })
+	task!: Task;
 }

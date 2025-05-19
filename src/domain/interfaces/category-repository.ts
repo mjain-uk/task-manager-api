@@ -1,8 +1,4 @@
 import type { Category } from "../entities/category";
+import type { IBaseCrud } from "./base-crud";
 
-export interface ICategory {
-	findAllCategory: () => Promise<Category[]>;
-	createCategory: (payload: Category) => Promise<Category>;
-	findCategoryById: (payload: Category["id"]) => Promise<Category | null>;
-	deleteById: (payload: Category["id"]) => Promise<void>;
-}
+export interface ICategory extends IBaseCrud<Category> {}
