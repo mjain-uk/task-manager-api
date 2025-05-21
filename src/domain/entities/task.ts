@@ -14,6 +14,9 @@ export class Task {
 	@ManyToOne(
 		() => Category,
 		(category) => category.tasks,
+		{
+			onDelete: "CASCADE",
+		},
 	)
 	category!: Category;
 }

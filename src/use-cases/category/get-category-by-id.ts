@@ -1,15 +1,13 @@
-import type { CategoryRepository } from "../../repository/category-respository";
+import type { Category } from "../../domain/entities/category";
+import type { BasicCrudUseCase } from "../base-crud/base-crud-use-case";
 
 export class GetCategoryById {
-	constructor(private categoryRepository: CategoryRepository) {}
+	constructor(private basicCrudUseCase: BasicCrudUseCase<Category>) {}
 	async execute(categoryId: number) {
-		if (!categoryId) {
-			throw new Error("Invalid category ID");
-		}
-		const category = await this.categoryRepository.findCategoryById(categoryId);
-		if (!category) {
-			throw new Error("Category Not found");
-		}
+		const category = await this.basicCrudUseCase.findOne({
+			value: categoryId,
+			key: "id",
+		});
 		return category;
 	}
 }

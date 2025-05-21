@@ -1,14 +1,11 @@
+import type { Category } from "../../domain/entities/category";
 import type { CreateCategoryDto } from "../../dtos/category/create-category-dto";
-import type { CategoryRepository } from "../../repository/category-respository";
+import type { BasicCrudUseCase } from "../base-crud/base-crud-use-case";
 
 export class CreateNewCategory {
-	constructor(private categoryRepository: CategoryRepository) {}
+	constructor(private basicCrudUseCase: BasicCrudUseCase<Category>) {}
 	async execute(payload: CreateCategoryDto) {
-		try {
-			const response = await this.categoryRepository.createCategory(payload);
-			return response;
-		} catch (error) {
-			throw new Error("Could not create category");
-		}
+		const response = this.basicCrudUseCase.create(payload);
+		return response;
 	}
 }

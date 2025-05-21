@@ -1,9 +1,13 @@
-import type { TaskRepository } from "../../repository/task-repository";
+import type { Task } from "../../domain/entities/task";
+import type { BasicCrudUseCase } from "../base-crud/base-crud-use-case";
 
 export class DeleteTaskById {
-	constructor(private taskrepository: TaskRepository) {}
+	constructor(private basicCrudUseCase: BasicCrudUseCase<Task>) {}
 	async execute(taskId: number | undefined) {
-		const response = await this.taskrepository.deleteTaskById(taskId);
+		const response = await this.basicCrudUseCase.deleteOne({
+			value: taskId,
+			key: "id",
+		});
 		return response;
 	}
 }

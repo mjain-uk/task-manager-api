@@ -1,7 +1,4 @@
 import type { Task } from "../entities/task";
+import type { IBaseCrud } from "./base-crud";
 
-export interface ITaskRepository {
-	findAllTask: () => Promise<Task[]>;
-	findTaskById: (taskId: number) => Promise<Task | null>;
-	createTask: (taskObject: Task) => Promise<Task>;
-}
+export interface ITaskRepository extends IBaseCrud<Task> {}
