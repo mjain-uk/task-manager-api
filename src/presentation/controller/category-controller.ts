@@ -47,7 +47,7 @@ export class CategoryController {
 			}
 
 			const task = await this.categoryService.create.execute({ name });
-			res.status(200).json(task);
+			res.status(201).json(task);
 		} catch (error) {
 			next(error);
 		}

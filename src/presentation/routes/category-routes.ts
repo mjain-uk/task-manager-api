@@ -11,9 +11,21 @@ export class CategoryRoutes extends BaseRouter {
 	}
 
 	private setupRoutes(): void {
-		this.router.get("/", this.categoryController.getAll);
-		this.router.get("/:catId", this.categoryController.getById);
-		this.router.post("/", this.categoryController.createNew);
-		this.router.delete("/:catId", this.categoryController.deleteById);
+		this.router.get(
+			"/",
+			this.categoryController.getAll.bind(this.categoryController),
+		);
+		this.router.get(
+			"/:catId",
+			this.categoryController.getById.bind(this.categoryController),
+		);
+		this.router.post(
+			"/",
+			this.categoryController.createNew.bind(this.categoryController),
+		);
+		this.router.delete(
+			"/:catId",
+			this.categoryController.deleteById.bind(this.categoryController),
+		);
 	}
 }

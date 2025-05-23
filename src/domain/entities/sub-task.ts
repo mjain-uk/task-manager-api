@@ -15,7 +15,7 @@ export class SubTask {
 	@Column({ length: 255 })
 	title!: string;
 
-	@OneToOne(() => Task, { nullable: false })
+	@OneToOne(() => Task, { nullable: false, onDelete: "CASCADE" })
 	@JoinColumn({ name: "task_id" })
 	task!: Task;
 }

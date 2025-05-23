@@ -4,10 +4,12 @@ import "reflect-metadata";
 import { AppDataSource } from "./db/index";
 
 import { CategoryRoutes } from "./presentation/routes/category-routes";
+import { SubTaskRoutes } from "./presentation/routes/sub-category-routes";
 import { TaskRoutes } from "./presentation/routes/task-routes";
 
 const taskRoutes = new TaskRoutes();
 const categoryRoutes = new CategoryRoutes();
+const subTaskRoutes = new SubTaskRoutes();
 
 const app = express();
 app.use(bodyParser.json());
@@ -20,5 +22,6 @@ AppDataSource.initialize()
 
 app.use("/tasks", taskRoutes.router);
 app.use("/category", categoryRoutes.router);
+app.use("/sub-task", subTaskRoutes.router);
 
 export default app;

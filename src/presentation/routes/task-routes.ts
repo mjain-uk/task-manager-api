@@ -11,10 +11,19 @@ export class TaskRoutes extends BaseRouter {
 	}
 
 	private setupRoutes(): void {
-		this.router.get("/", this.taskController.getAll);
-		this.router.post("/", this.taskController.createNew);
+		this.router.get("/", this.taskController.getAll.bind(this.taskController));
+		this.router.post(
+			"/",
+			this.taskController.createNew.bind(this.taskController),
+		);
 
-		this.router.get("/:taskId", this.taskController.getById);
-		this.router.delete("/:taskId", this.taskController.deleteById);
+		this.router.get(
+			"/:taskId",
+			this.taskController.getById.bind(this.taskController),
+		);
+		this.router.delete(
+			"/:taskId",
+			this.taskController.deleteById.bind(this.taskController),
+		);
 	}
 }
