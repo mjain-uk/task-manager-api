@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 import "reflect-metadata";
 import { DataSource } from "typeorm";
 import { Category } from "../domain/entities/category";
+import { Comment } from "../domain/entities/comments";
 import { SubTask } from "../domain/entities/sub-task";
 import { Task } from "../domain/entities/task";
 
@@ -14,7 +15,7 @@ export const AppDataSource = new DataSource({
 	username: process.env.DB_USERNAME,
 	password: process.env.DB_PASSWORD,
 	database: "taskmanagement",
-	entities: [Category, Task, SubTask],
+	entities: [Category, Task, SubTask, Comment],
 	synchronize: true,
 	logging: false,
 });

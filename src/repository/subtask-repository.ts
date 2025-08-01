@@ -6,4 +6,7 @@ export class SubtaskRepository extends BaseCrudRepository<SubTask> {
 	constructor() {
 		super(AppDataSource.getRepository(SubTask));
 	}
+	async findAll() {
+		return await super.findAll({ relations: ["task"] });
+	}
 }
